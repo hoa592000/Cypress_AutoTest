@@ -16,12 +16,9 @@ beforeEach('Đăng nhập', () => {
 
 describe('Kiểm tra xác thực đầu vào', () => {
     let data = [
-        // challenge "localXss"
-        // ['<iframe src="javascript:alert(`xss`)">'],
-        // challenge "xssBonusPayload"
-        ['<iframe id = "BugXSS1" width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>'],
+        ['<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" id = "BugXSS1"></iframe>'],
         ['</script><svg onload=alert(1)>'],
-        ['<x oncopy=alert(1)>copy this! ']
+        ['<svg/onload=location=name>']
     ]
     data.forEach(row => {
         it('Kiểm tra Cross Site Scripting (XSS)', function() {

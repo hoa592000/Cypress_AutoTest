@@ -1,7 +1,6 @@
 const { defineConfig } = require("cypress");
-
-  const xlsx = require("node-xlsx").default;
-  const fs = require("fs");
+const xlsx = require("node-xlsx").default;
+const fs = require("fs");
 
   module.exports = defineConfig({
     e2e: {

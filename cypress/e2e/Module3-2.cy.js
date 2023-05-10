@@ -1,4 +1,6 @@
 import { before } from "lodash"
+import registerPage from "../PageObjects/registerPage";
+const registerpage = new registerPage();
 
 describe('Kiểm tra quản lý định danh', () => {
     beforeEach(() => {
@@ -7,28 +9,19 @@ describe('Kiểm tra quản lý định danh', () => {
 
     it('Kiểm tra đăng kí người dùng mới', function() {
 
-        cy.get('button[class="mat-focus-indicator mat-tooltip-trigger mat-raised-button mat-button-base mat-warn ng-star-inserted"').click();
+        registerpage.setClickCancel();
 
-        //input email
-        cy.get('input[id="emailControl"][type="text"]').type('thanhhoa592000@gmail.com');
+        registerpage.setInputEmail("thanhhoa592000@gmail.com");
 
-        //input password
-        cy.get('input[id="passwordControl"][type="password"]').type('1234567');
+        registerpage.setInputPassword("1234567");
 
-        //input repeat password
-        cy.get('input[id="repeatPasswordControl"][type="password"]').type('1234567');
+        registerpage.setInputRepeatPassword("1234567");
 
-        // Click vào
-        cy.get('div[class="mat-form-field-infix ng-tns-c21-10"]').click();
+        registerpage.setAnswerControl("test");
 
-        // chọn câu hỏi security
-        cy.get('#mat-option-0').click();
+        registerpage.setClickRegister();
 
-        // trả lời câu hỏi
-        cy.get('#securityAnswerControl').type('test');
-
-        //click đăng kí
-        cy.get('#registerButton').click();
+        cy.wait(10000);
 
     })
 })
