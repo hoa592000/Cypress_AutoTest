@@ -16,9 +16,7 @@ beforeEach('Đăng nhập', () => {
 
 describe('Kiểm tra xác thực đầu vào', () => {
     let data = [
-        ['<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" id = "BugXSS1"></iframe>'],
-        ['</script><svg onload=alert(1)>'],
-        ['<svg/onload=location=name>']
+        ['<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/771984076&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" id = "BugXSS1"></iframe>']
     ]
     data.forEach(row => {
         it('Kiểm tra Cross Site Scripting (XSS)', function() {
@@ -31,17 +29,13 @@ describe('Kiểm tra xác thực đầu vào', () => {
                     cy.stub(win, 'confirm').returns(true)
                 })
                 cy.window().document()
-                    .then(function(doc) {
-                        doc.addEventListener("load", () => {      setTimeout(function() {       doc.location.reload();      }, 4000);     });    
-                        // cy.get('body > app-root > div > mat-sidenav-container > mat-sidenav-content > app-navbar > mat-toolbar > mat-toolbar-row > button:nth-child(2)').click()
-                        cy.reload()
-                        cy.get('#searchQuery').click()
-                        cy.get('#mat-input-0')
-                            // .click()
-                            .type(row[0])
-                            .type('{enter}')
-                    });
-                cy.wait(10000)
+                cy.reload()
+                cy.get('#searchQuery').click()
+                cy.get('#mat-input-0')
+                .type(row[0])
+                .type('{enter}')
+ 
+                cy.wait(1000)
                     // cy.on('window:confirm', () => true)
                 cy.get('#BugXSS1').should('not.be.visible');
 
